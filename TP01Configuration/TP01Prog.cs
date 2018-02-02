@@ -19,6 +19,8 @@ namespace TP01Configuration
             WriteLine($"Your Favorite Color is {settings.FavoriteColor}\nEnter a new color:");           
             settings.FavoriteColor = ReadLine();
             settings.Save();
+            WriteLine("press any key to quit");
+            ReadKey();
             
         }
 

@@ -1,4 +1,7 @@
-﻿namespace TP01Configuration {
+﻿
+using static System.Console;
+
+namespace TP01Configuration {
     
     
     // This class allows you to handle specific events on the settings class:
@@ -11,18 +14,20 @@
         public TP01Settings() {
             // // To add event handlers for saving and changing settings, uncomment the lines below:
             //
-            // this.SettingChanging += this.SettingChangingEventHandler;
+             this.SettingChanging += this.SettingChangingEventHandler;
             //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
+             this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
         
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
             // Add code to handle the SettingChangingEvent event here.
+            WriteLine($"Setting \"{e.SettingName}\" has changed, new value is {e.NewValue}");
         }
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
             // Add code to handle the SettingsSaving event here.
+            WriteLine($"Setting has been saved");
         }
     }
 }

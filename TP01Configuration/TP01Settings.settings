@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TP01Configuration" GeneratedClassName="TP01">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TP01Configuration" GeneratedClassName="TP01Settings">
   <Profiles />
   <Settings>
     <Setting Name="ServiceURL" Type="(Web Service URL)" Scope="Application">
@@ -14,7 +14,7 @@
       <Value Profile="(Default)">Data Source=(localDB)\MSSQLLocalDB;Initial Catalog=C:\USERS\NICO\DOCUMENTS\NEWEFDB.MDF;Integrated Security=True</Value>
     </Setting>
     <Setting Name="FavoriteColor" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Coffe</Value>
+      <Value Profile="(Default)">Red</Value>
     </Setting>
   </Settings>
 </SettingsFile>

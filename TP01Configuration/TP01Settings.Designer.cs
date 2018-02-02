@@ -12,7 +12,7 @@ namespace TP01Configuration {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class TP01Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static TP01Settings defaultInstance = ((TP01Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new TP01Settings())));
@@ -46,7 +46,7 @@ namespace TP01Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Coffe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
         public string FavoriteColor {
             get {
                 return ((string)(this["FavoriteColor"]));
