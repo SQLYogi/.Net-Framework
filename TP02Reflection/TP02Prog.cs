@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection;
+
+using System.Reflection; //Namespace used for Reflection
 using static System.Console;
 
 namespace TP02Reflection
@@ -13,7 +14,8 @@ namespace TP02Reflection
         static void Main(string[] args)
         {
 
-            string path = @"F:\Digicomp2016\FrameworkDotNet\TP01Configuration\bin\Debug\TP01Configuration.exe";
+
+            string path = @"C:\Dev\Digicomp\.Net-Framework\TP01Configuration\bin\Debug\TP01Configuration.exe";
 
             //Load an assembly from a file
             Assembly assembly = Assembly.LoadFile(path);
@@ -40,7 +42,8 @@ namespace TP02Reflection
             //NB: Class, Méthods and Properties must be public
             dynamic dynInstance = assembly.CreateInstance("TP01Configuration.TP01Prog");
             WriteLine($"From Dynamic : {dynInstance.GetUserFavoriteColor()}");
-            
+
+            WriteLine("Press any key to quit...");
             //Wait until key pressed
             ReadKey();
 
