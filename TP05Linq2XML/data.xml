@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<students>
+  <student firstname="Nicolas" lastname="Bonin"/>
+  <student firstname="Pierre" lastname="Richard"/>
+  <student firstname="Gérard" lastname="Depardieu"/>
+  <student firstname="Nicolas" lastname="Sarkozy"/>
+</students>
