@@ -11,14 +11,20 @@ namespace TP05Linq2XML
     {
         static void Main(string[] args)
         {
+
             //Charge un fichier Xml
             XElement root = XElement.Load("data.xml");
 
+            //On peut utiliser ToList() qui permet de faire une itération avec ForEach
+            root.Descendants().ToList().ForEach(x => Console.WriteLine(x.Attribute("firstname").Value));
+            
+            //Avec une Query LINQ
             var students = from s in root.Descendants()
-                          // where s.Attribute("firstname").Value.Contains("Nico")
-                          // orderby s.Attribute("lastname").Value descending
+                           where s.Attribute("firstname").Value.Contains("Nico")
+                           orderby s.Attribute("lastname").Value descending
                            select new Student() { FirstName = s.Attribute("firstname").Value,LastName= s.Attribute("lastname").Value}; //.Attribute("firstname").Value;
-                           
+                          
+            
             foreach (var s in students)
                 Console.WriteLine($"{s}");
             Console.ReadKey();

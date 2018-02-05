@@ -31,6 +31,38 @@ namespace TP03Dynamics
             WriteLine($"J'ai {y.NLegs} pattes");
             WriteLine(y.Aboye("Je suis un chien!"));
 
+
+            //A dynamic ExpandoObject
+            dynamic expandObject = new ExpandoObject();
+            expandObject.FirstName = "Nicolas";
+            expandObject.LastName = "Bonin";
+            expandObject.PrintFullName = new Action(()=>WriteLine($"{expandObject.FirstName} {expandObject.LastName}"));
+
+            expandObject.PrintFullName();
+        
+
+            //Add an event Handler
+            expandObject.MyEvent = null;
+            expandObject.MyEvent += new EventHandler(OnMyEvent);
+            //Call the event if it has a least on ref
+            expandObject.MyEvent?.Invoke(expandObject,new EventArgs());
+
+            //Subscription à INotifyPropertyChanged sur l'objet ExpandoObject
+            //require  System.ComponentModel;
+            ((INotifyPropertyChanged)expandObject).PropertyChanged += TP03Prog_PropertyChanged;
+            expandObject.FirstName = "Tutu";
+            expandObject.LastName = "Toto";
+
+
+            //As an asynchronious task
+            y = new Task(() =>
+            {
+                WriteLine("Je suis une tache asynchrone!!");
+                Thread.Sleep(3000);
+                WriteLine("J'ai fini mon travail asynchrone, je travail dur!");
+            });
+            y.Start();
+            WriteLine("La tache asynchrone fait son boulot, moi je suis libre!");
             //As a function delegate           
             y = new functionReference(WriteSomething); ;
             WriteLine(y("Je suis une fonction!"));
@@ -42,34 +74,7 @@ namespace TP03Dynamics
             y = new Func<string, string>(str1 => $"Je suis Func {str1}!");
             WriteLine(y("Funcky"));
 
-            //As an asynchronious task
-            y = new Task(() =>
-            {
-                WriteLine("Je suis une tache asynchrone!!");
-                Thread.Sleep(3000);
-                WriteLine("J'ai fini mon travail asynchrone, je travail dur!");
-            });
-            y.Start();
-            WriteLine("La tache asynchrone fait son boulot, moi je suis libre!");
-
-            //A dynamic ExpandoObject
-            dynamic expandObject = new ExpandoObject();
-            expandObject.FirstName = "Nicolas";
-            expandObject.LastName = "Bonin";
-            expandObject.Greating = new Func<string,string>(param1=>$"Hello from Expando my friend {param1}");
-            WriteLine(expandObject.Greating(expandObject.FirstName));
-
-            //Add an event Handler
-            expandObject.MyEvent = null;
-            expandObject.MyEvent += new EventHandler(OnMyEvent);
-            //Call the event if it has a least on ref
-            expandObject.MyEvent?.Invoke(expandObject,new EventArgs());
-
-            //require  System.ComponentModel;
-            ((INotifyPropertyChanged)expandObject).PropertyChanged += TP03Prog_PropertyChanged;
-            expandObject.FirstName = "Tutu";
-            expandObject.LastName = "Toto";                    
-            
+            WriteLine("Press any key to quit...");
             ReadKey();
         }
 
