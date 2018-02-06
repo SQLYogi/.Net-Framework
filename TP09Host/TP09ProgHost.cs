@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using System.ServiceModel;
 using TP09WCFService;
+
 namespace TP09Host
 {
     class TP09ProgHost

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using TP06TCPListener.Properties;
 
 namespace TP06TCPListener
 {
@@ -14,39 +15,43 @@ namespace TP06TCPListener
         static void Main(string[] args)
         {
             Console.WriteLine("Starting echo server...");
-
-            //---listen at the specified IP and port no.---
-            IPAddress localAdd = IPAddress.Loopback;
-            TcpListener listener = new TcpListener(localAdd, 8888);
+      
+            //Créé un TCP Listener sur l'adress locale et port 8888
+            TcpListener listener = new TcpListener(IPAddress.Loopback,Settings.Default.Port);
             Console.WriteLine("Listening...");
+            //Démarre le listener
             listener.Start();
 
+            //Boucle infinie, jusqu'à ce que l'on recoive entre "q"
             while (true)
             {
-                //---incoming client connected---
+                //Attend une connection client
                 TcpClient client = listener.AcceptTcpClient();
                
-                //---get the incoming data through a network stream---
+                //Recupère le stream de données
                 NetworkStream nwStream = client.GetStream();
                 byte[] buffer = new byte[client.ReceiveBufferSize];
 
-                //---read incoming stream---
+                //Lit les données et les mets dans un buffer
                 int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
 
-                //---convert the data received into a string---
+                //---converti les données en String
                 string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Received : " + dataReceived);
 
-                //---write back the text to the client---
+                //Ecrit les données sur le stream pour les renvoyer au Client
                 Console.WriteLine("Sending back : " + dataReceived);
                 nwStream.Write(buffer, 0, bytesRead);
+                //Ferme la connection et le stream
                 client.Close();
+                nwStream.Close();
+
                 if (dataReceived == "q")
                     break;
 
 
             }
-            listener.Stop();
+            listener.Stop();            
         }
     }
 }

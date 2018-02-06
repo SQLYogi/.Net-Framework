@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.IO;
 using System.Net;
+using TP06TCPClient.Properties;
 
 namespace TP06TCPClient
 {
@@ -18,32 +19,32 @@ namespace TP06TCPClient
 
             Console.WriteLine("Starting echo client...");
 
-            int port = 8888;
-            
-                                  
-
+            //Boucle infinie, jusqu'à ce que l'utilisateur entre "q"
             while (true)
             {
-
-                //---create a TCPClient object at the IP and port no.---
-                TcpClient client = new TcpClient("localhost", 8888);               
+                //Crée un TCPCLient sur un port disponible (0 pour le port automatique)    
+                TcpClient client = new TcpClient(new IPEndPoint(IPAddress.Loopback, 0));
 
                 Console.Write("Enter data to send (q to exit):");
-                //---get data to send to the server---
+                //Les données à envoyer au server
                 string textToSend = Console.ReadLine();
-
-                //Use a stream to write on the network
+                //Se connecte au server
+                client.Connect(new IPEndPoint(IPAddress.Loopback, Settings.Default.ServerPort));
+                //Crée un stream de données
                 NetworkStream nwStream = client.GetStream();
                 byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(textToSend);
 
-                //---send the text---                
+                //Envoie les données au server           
                 nwStream.Write(bytesToSend, 0, bytesToSend.Length);
 
-                //---read back the text---
+                //Lit sur le stream réseau le retour du serveur
                 byte[] bytesToRead = new byte[client.ReceiveBufferSize];
                 int bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
-                Console.WriteLine("Echo is : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));                
+                Console.WriteLine("Echo is : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));        
+                
+                //Cleaning
                 client.Close();
+                nwStream.Close();
                 //Exit if q
                 if (textToSend == "q")
                     break;

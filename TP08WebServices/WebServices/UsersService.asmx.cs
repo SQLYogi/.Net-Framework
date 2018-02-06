@@ -7,48 +7,41 @@ using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
 
+
 namespace TP08WebServices.WebServices
 {
     /// <summary>
-    /// Summary description for QuotesService
+    /// Summary description for UsersService
     /// </summary>
-    [WebService(Namespace = "http://Digicomp/2016/06/QuoteService")]
+    [WebService(Namespace = "http://Digicomp/2018/02/UsersService")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     [System.Web.Script.Services.ScriptService]
-    public class QuotesService : System.Web.Services.WebService
+    public class UsersService : System.Web.Services.WebService
     {
-
+        //Crée le DBContext permettant d'accéder à notre DB
+        LocalDbEntities dbContext = new LocalDbEntities();
         [WebMethod]
         public string HelloWorld()
         {
             return "Hello World";
         }
         [WebMethod]
-                public List<Person> GetPersons()
+       public List<User> GetPersons()
         {
-            return new List<Person>() { new Person { Id = 1, FirstName="Nicolas",LastName="bonin" },new Person { Id = 2, FirstName = "Nicolasas", LastName = "boninni" } };
-            
+            return dbContext.Users.ToList();                        
         }
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public string GetPersonsJson()
         {
-            var persons = new List<Person>() { new Person { Id = 1, FirstName = "Nicolas", LastName = "bonin" }, new Person { Id = 2, FirstName = "Nicolasas", LastName = "boninni" } };
-            return new JavaScriptSerializer().Serialize(persons);
+        
+            return new JavaScriptSerializer().Serialize(dbContext.Users.ToList());
         }
 
     }
 
-    public class Person
-    { public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-    }
-    
 
 }

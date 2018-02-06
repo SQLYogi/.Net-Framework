@@ -1,6 +1,6 @@
 ﻿namespace TP07WinService
 {
-    partial class QuotesService
+    partial class TimerService
     {
         /// <summary> 
         /// Required designer variable.

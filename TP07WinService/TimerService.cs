@@ -11,12 +11,12 @@ using System.Timers;
 
 namespace TP07WinService
 {
-    public partial class QuotesService : ServiceBase
+    public partial class TimerService : ServiceBase
     {
         int counter;
         Timer timer;
 
-        public QuotesService()
+        public TimerService()
         {
             InitializeComponent();
             counter = 1;

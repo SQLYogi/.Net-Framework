@@ -17,59 +17,50 @@ namespace TP06Network
         static void Main(string[] args)
         {
             string strHostName = "";
-            strHostName = System.Net.Dns.GetHostName();
-            IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
+            strHostName = Dns.GetHostName(); //Retrouve le nom de la machine
+            WriteLine($"Host Name:{strHostName}");
+            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
             IPAddress[] addr = ipEntry.AddressList;
-            // ipLabel.Text = addr[addr.Length - 2].ToString();
+          
             foreach (var a in addr)
             {
                 WriteLine(a);
             }
-           // WebClientSample();
-            AsynchroniousWebClientSample();
+            //Télécharge la page
+            DownloadWebPage(URL);
+            //Télécharge la page de manière asynchrone
+            DownloadWebPageAsync(URL);
             WriteLine("Async method launched....");
 
+            WriteLine("Press any key to quit...");
             ReadKey();
         }
 
-        private static void WebClientSample()
+        private static void DownloadWebPage(string url)
         {
             using (WebClient wb = new WebClient())
             {
-                WriteLine("downloading google...");
-                //wb.Headers[HttpRequestHeader.UserAgent] = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";                              
-            
-                string html = wb.DownloadString(URL);
-                File.WriteAllText("WebClientSample.txt", html);
-                WriteLine("Result written in WebClientSample.txt");
-                              
+                wb.DownloadFile(url, $"{url.Remove(0,7)}.html");
+            }
+        }
+
+        private static void DownloadWebPageAsync(string url)
+        {
+            using (WebClient wb = new WebClient())
+            {
+                WriteLine($"downloading {url}");
+                wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
+                wb.DownloadFileAsync(new Uri(url), $"{url.Remove(0, 7)}Async.html");                    
             }
 
         }
 
-        private static void AsynchroniousWebClientSample()
-        {
-            using (WebClient wb = new WebClient())
-            {
-                WriteLine("downloading yahoo Async...");
-                wb.DownloadStringCompleted += Wb_DownloadStringCompleted;
-                wb.DownloadStringAsync(new Uri(URL));
-                /*Task<string> task = new Task<string>(()=>wb.DownloadString(URL));
-                task.Start();
-                task.Wait();
-                WriteLine(task.Result);
-                */
-
-            }
-
+        private static void Wb_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {            
+            WriteLine($"Async download completed... {sender.GetType()}");
         }
-      
-        private static void Wb_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            File.WriteAllText("AsynchroniousWebClientSample.txt", e.Result);
-            WriteLine("Result written in AsynchroniousWebClientSample.txt");
-           
-        }
+
+  
 
 
     }

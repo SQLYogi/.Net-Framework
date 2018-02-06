@@ -46,6 +46,16 @@ namespace TP10UnitTest
             Assert.AreEqual(result, double.PositiveInfinity);
         }
 
-
+        [TestMethod]
+        [ExpectedException(typeof(DivideByZeroException))]
+        public void TestDivideIntbyZeroException()
+        {
+            //Arrange 
+            var calc = new Calculator();
+            //Act            
+            var result = calc.DivideInt(12, 0); //this fail cause double division doesn't throw divided by zero!!! but + Infini
+            //assert
+            //Assert.AreEqual(result, double.PositiveInfinity);
+        }
     }
 }

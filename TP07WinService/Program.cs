@@ -17,7 +17,7 @@ namespace TP07WinService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new QuotesService()
+                new TimerService()
             };
             ServiceBase.Run(ServicesToRun);
         }

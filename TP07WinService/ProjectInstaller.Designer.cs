@@ -42,6 +42,7 @@
             this.serviceInstaller1.Description = "This service is a sample windows service";
             this.serviceInstaller1.DisplayName = "MyGreatService";
             this.serviceInstaller1.ServiceName = "MyGreatServiceName";
+            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
